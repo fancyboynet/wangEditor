@@ -167,9 +167,11 @@
 .w-e-icon-text-heigh:before {
   content: "\ea5f";
 }
+.w-e-icon-topic:before {
+  content: "#";
+}
 
 .w-e-toolbar {
-  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   padding: 0 5px;
@@ -221,7 +223,6 @@
 }
 .w-e-text-container .w-e-panel-container .w-e-panel-tab-title {
   list-style: none;
-  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   font-size: 14px;
@@ -408,4 +409,17 @@
 }
 .w-e-text img:hover {
   box-shadow: 0 0 5px #333;
+}
+
+.w-e-topiclist {
+  list-style: none;
+  line-height: 1;
+}
+.w-e-topiclist li {
+  color: #333;
+  padding: 5px 0;
+  cursor: pointer;
+}
+.w-e-topiclist li:hover {
+  background-color: #f1f1f1;
 }

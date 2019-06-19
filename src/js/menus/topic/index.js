@@ -1,14 +1,14 @@
 /*
-    menu - link
+    menu - topic
 */
 import $ from '../../util/dom-core.js'
 import { getRandom } from '../../util/util.js'
 import Panel from '../panel.js'
 
 // 构造函数
-function Link(editor) {
+function Topic(editor) {
     this.editor = editor
-    this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-link"></i></div>')
+    this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-topic"></i></div>')
     this.type = 'panel'
 
     // 当前是否 active 状态
@@ -16,8 +16,8 @@ function Link(editor) {
 }
 
 // 原型
-Link.prototype = {
-    constructor: Link,
+Topic.prototype = {
+    constructor: Topic,
 
     // 点击事件
     onClick: function (e) {
@@ -34,7 +34,7 @@ Link.prototype = {
             editor.selection.createRangeByElem($linkelem)
             editor.selection.restoreSelection()
             // 显示 panel
-            this._createPanel($linkelem.text(), $linkelem.attr('href'))
+            this._createPanel($linkelem.text().replace(/#/g, ''))
         } else {
             // 当前选区不在链接里面
             if (editor.selection.isSelectionEmpty()) {
@@ -48,10 +48,10 @@ Link.prototype = {
     },
 
     // 创建 panel
-    _createPanel: function (text, link) {
+    _createPanel: function (text) {
         // panel 中需要用到的id
-        const inputLinkId = getRandom('input-link')
         const inputTextId = getRandom('input-text')
+        const listId = getRandom('input-text')
         const btnOkId = getRandom('btn-ok')
         const btnDelId = getRandom('btn-del')
 
@@ -65,29 +65,47 @@ Link.prototype = {
             tabs: [
                 {
                     // tab 的标题
-                    title: '链接',
+                    title: '话题',
                     // 模板
                     tpl: `<div>
-                            <input id="${inputTextId}" type="text" class="block" value="${text}" placeholder="链接文字"/></td>
-                            <input id="${inputLinkId}" type="text" class="block" value="${link}" placeholder="http://..."/></td>
+                            <input id="${inputTextId}" type="text" class="block" value="${text}" placeholder="话题"/>
+                            <ul id="${listId}" class="w-e-topiclist"></ul>
                             <div class="w-e-button-container">
                                 <button id="${btnOkId}" class="right">插入</button>
-                                <button id="${btnDelId}" class="gray right" style="display:${delBtnDisplay}">删除链接</button>
+                                <button id="${btnDelId}" class="gray right" style="display:${delBtnDisplay}">删除话题</button>
                             </div>
                         </div>`,
                     // 事件绑定
                     events: [
-                        // 插入链接
+                        // 输入话题
+                        {
+                            selector: '#' + inputTextId,
+                            type: 'input',
+                            fn: () => {
+                                const $text = $('#' + inputTextId)
+                                const text = $text.val()
+                                this._onInput(text)
+                            }
+                        },
+                        // 点击list
+                        {
+                            selector: '#' + listId,
+                            type: 'click',
+                            fn: (evt) => {
+                                console.log(evt)
+                                this._insert(evt.target.textContent)
+                                return true
+                            }
+                        },
+                        // 插入
                         {
                             selector: '#' + btnOkId,
                             type: 'click',
                             fn: () => {
-                                // 执行插入链接
-                                const $link = $('#' + inputLinkId)
+                                // 执行插入
                                 const $text = $('#' + inputTextId)
-                                const link = $link.val()
                                 const text = $text.val()
-                                this._insertLink(text, link)
+                                this._insert(text)
 
                                 // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
                                 return true
@@ -99,7 +117,7 @@ Link.prototype = {
                             type: 'click',
                             fn: () => {
                                 // 执行删除链接
-                                this._delLink()
+                                this._del()
 
                                 // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
                                 return true
@@ -115,10 +133,30 @@ Link.prototype = {
 
         // 记录属性
         this.panel = panel
+        this._listId = listId
+    },
+
+    _onInput (text) {
+        const config = this.editor.config.topic
+        if (!config) {
+            return
+        }
+        if (typeof config.onInput !== 'function') {
+            return
+        }
+        config.onInput.call(this.editor, text)
+    },
+
+    setList (data) {
+        const $list = document.querySelector(`#${this._listId}`)
+        if (!$list) {
+            return
+        }
+        $list.innerHTML = data.map(x => `<li>${x}</li>`).join('')
     },
 
     // 删除当前链接
-    _delLink: function () {
+    _del: function () {
         if (!this._active) {
             return
         }
@@ -131,17 +169,16 @@ Link.prototype = {
         editor.cmd.do('insertHTML', '<span>' + selectionText + '</span>')
     },
 
-    // 插入链接
-    _insertLink: function (text, link) {
-        const editor = this.editor
-        const config = editor.config
-        const linkCheck = config.linkCheck
-        let checkResult = true // 默认为 true
-        if (linkCheck && typeof linkCheck === 'function') {
-            checkResult = linkCheck(text, link)
+    // 插入话题
+    _insert: function (text) {
+        text = text.replace(/#/g, '')
+        if (!text) {
+            return
         }
+        const editor = this.editor
+        let checkResult = true // 默认为 true
         if (checkResult === true) {
-            editor.cmd.do('insertHTML', `<a href="${link}" target="_blank">${text}</a>`)
+            editor.cmd.do('insertHTML', `<a href="javascript:topic;">#${text}#</a>`)
         } else {
             alert(checkResult)
         }
@@ -155,7 +192,7 @@ Link.prototype = {
         if (!$selectionELem) {
             return
         }
-        if ($selectionELem.getNodeName() === 'A'  && $selectionELem[0].href !== 'javascript:topic;') {
+        if ($selectionELem.getNodeName() === 'A' && $selectionELem[0].href === 'javascript:topic;') {
             this._active = true
             $elem.addClass('w-e-active')
         } else {
@@ -165,4 +202,4 @@ Link.prototype = {
     }
 }
 
-export default Link
+export default Topic

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>wangEditor topic test</title>
+</head>
+<body>
+    <p>话题测试</p>
+    <div id="div1">
+        <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
+    </div>
+
+    <script type="text/javascript" src="/wangEditor.js"></script>
+    <script type="text/javascript">
+        var E = window.wangEditor
+        var editor = new E('#div1')
+        function getTopics () {
+            return new Promise(function (resolve, reject) {
+                return resolve([
+                    Math.random().toString().slice(2),
+                    Math.random().toString().slice(2),
+                    Math.random().toString().slice(2),
+                    Math.random().toString().slice(2)
+                ])
+            })
+        }
+        editor.customConfig.menus = [
+            'topic'
+        ]
+        editor.customConfig.topic = {
+            onInput (v) {
+                getTopics().then((list) => {
+                    this.setTopicList(list)
+                })
+            }
+        }
+        editor.create()
+    </script>
+</body>
+</html>
