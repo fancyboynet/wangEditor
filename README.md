@@ -7,7 +7,13 @@
 
 - topic
 
-## topic
+## Install
+
+```
+yarn add @fancy/wangeditor
+```
+
+## Topic
 
 使用方式
 ```
