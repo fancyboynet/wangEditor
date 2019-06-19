@@ -415,6 +415,7 @@
   list-style: none;
   line-height: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   max-height: 200px;
 }
 .w-e-topiclist li {
