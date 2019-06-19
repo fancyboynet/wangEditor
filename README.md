@@ -1,5 +1,5 @@
 
-# @fancy/wangEditor
+# fancy-wangeditor
 
 [wangEditor](http://wangEditor.github.io/) 二次开发
 
@@ -10,7 +10,7 @@
 ## Install
 
 ```
-yarn add @fancy/wangeditor
+yarn add fancy-wangeditor
 ```
 
 ## Topic
