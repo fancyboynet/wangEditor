@@ -414,6 +414,8 @@
 .w-e-topiclist {
   list-style: none;
   line-height: 1;
+  overflow-y: auto;
+  max-height: 200px;
 }
 .w-e-topiclist li {
   color: #333;
