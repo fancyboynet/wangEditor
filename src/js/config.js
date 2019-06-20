@@ -24,6 +24,7 @@ const config = {
         'table',
         'video',
         'code',
+        'youtube',
         'topic',
         'redo'
     ],

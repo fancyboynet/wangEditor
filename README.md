@@ -5,7 +5,8 @@
 
 ## 增加功能
 
-- topic
+- topic // 话题
+- youtube // youtube视频
 
 ## Install
 
@@ -15,12 +16,12 @@ yarn add fancy-wangeditor
 
 ## Topic
 
-使用方式
+usage
 ```
 editor.customConfig.menus = [
     'topic'
 ]
-editor.customConfig.topic = {
+editor.customConfig.topic = {  // 设置推荐列表，可选
     onInput (v) {
         getTopics().then((list) => {
             this.setTopicList(list)
@@ -29,7 +30,21 @@ editor.customConfig.topic = {
 }
 editor.create()
 ```
-对应html源码
+output
 ```
 <a href="javascript:topic;">#话题#</a>
+```
+
+## Youtube
+
+usage
+```
+editor.customConfig.menus = [
+    'youtube'
+]
+editor.create()
+```
+output
+```
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xxx" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 ```

@@ -70,3 +70,10 @@ export function percentFormat(number) {
 export function isFunction(fn) {
     return typeof fn === 'function'
 }
+
+export function createYouTuBeEmbedCode (url, width = 560, height = 315) {
+    const reg = /.*v=(.+)$/i
+    const reg2 = /.*youtu.be\/(.+)$/i
+    const id = reg.test(url) ? url.replace(reg, '$1') : url.replace(reg2, '$1')
+    return `<iframe width="${width}" height="${height}" src="https://www.youtube.com/embed/${id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+}
