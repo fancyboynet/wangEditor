@@ -92,7 +92,6 @@ Topic.prototype = {
                             selector: '#' + listId,
                             type: 'click',
                             fn: (evt) => {
-                                console.log(evt)
                                 this._insert(evt.target.textContent)
                                 return true
                             }
