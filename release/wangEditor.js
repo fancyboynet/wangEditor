@@ -2948,7 +2948,6 @@ Topic.prototype = {
                     selector: '#' + listId,
                     type: 'click',
                     fn: function fn(evt) {
-                        console.log(evt);
                         _this._insert(evt.target.textContent);
                         return true;
                     }
