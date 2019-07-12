@@ -4,6 +4,10 @@
 	(global.wangEditor = factory());
 }(this, (function () { 'use strict';
 
+var NAME = 'fancy-wangeditor';
+var VERSION = '3.2.4';
+window.console.log('%c ' + NAME + ' v' + VERSION + ' ', 'background: black; color: white');
+
 /*
     poly-fill
 */
