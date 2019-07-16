@@ -7,6 +7,7 @@
 
 - topic // 话题
 - youtube // youtube视频
+- 插入图片附带宽高属性
 
 ## Install
 
