@@ -5,7 +5,7 @@
 }(this, (function () { 'use strict';
 
 var NAME = 'fancy-wangeditor';
-var VERSION = '3.2.7';
+var VERSION = '3.2.8';
 window.console.log('%c ' + NAME + ' v' + VERSION + ' ', 'background: black; color: white');
 
 /*
@@ -3131,7 +3131,7 @@ Youtube.prototype = {
     // 插入视频
     _insert: function _insert(val) {
         var editor = this.editor;
-        editor.cmd.do('insertHTML', '<p><br></p><p>' + createYouTuBeEmbedCode(val) + '</p><p><br></p>');
+        editor.cmd.do('insertHTML', '<p><br></p>' + createYouTuBeEmbedCode(val) + '<p><br></p>');
     }
 };
 
