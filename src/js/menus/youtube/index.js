@@ -79,7 +79,7 @@ Youtube.prototype = {
     // 插入视频
     _insert: function (val) {
         const editor = this.editor
-        editor.cmd.do('insertHTML', `<p><br></p>${createYouTuBeEmbedCode(val)}<p><br></p>`)
+        editor.cmd.do('insertHTML', `<p><br></p><p>${createYouTuBeEmbedCode(val)}</p><p><br></p>`)
     }
 }
 

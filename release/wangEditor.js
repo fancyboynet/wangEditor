@@ -5,7 +5,7 @@
 }(this, (function () { 'use strict';
 
 var NAME = 'fancy-wangeditor';
-var VERSION = '3.2.8';
+var VERSION = '3.2.9';
 window.console.log('%c ' + NAME + ' v' + VERSION + ' ', 'background: black; color: white');
 
 /*
@@ -3131,7 +3131,7 @@ Youtube.prototype = {
     // 插入视频
     _insert: function _insert(val) {
         var editor = this.editor;
-        editor.cmd.do('insertHTML', '<p><br></p>' + createYouTuBeEmbedCode(val) + '<p><br></p>');
+        editor.cmd.do('insertHTML', '<p><br></p><p>' + createYouTuBeEmbedCode(val) + '</p><p><br></p>');
     }
 };
 
@@ -4353,7 +4353,7 @@ UploadImg.prototype = {
         // 验证图片 url 是否有效，无效的话给出提示
         var img = document.createElement('img');
         img.onload = function () {
-            editor.cmd.do('insertHTML', '<p><br></p><img src="' + link + '" style="max-width:100%;" width="' + img.width + '" height="' + img.height + '" />');
+            editor.cmd.do('insertHTML', '<p><br></p><p><img src="' + link + '" style="max-width:100%;" width="' + img.width + '" height="' + img.height + '" /></p>');
 
             var callback = config.linkImgCallback;
             if (callback && typeof callback === 'function') {
