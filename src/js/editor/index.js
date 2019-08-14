@@ -64,9 +64,10 @@ Editor.prototype = {
 
         const config = this.config
         const zIndex = config.zIndex
+        const initHeight = config.minContentHeight || 300
 
         // 定义变量
-        let $toolbarElem, $textContainerElem, $textElem, $children
+        let $toolbarElem, $textContainerElem, $textContainerInnerElem, $textElem, $children
 
         if (textSelector == null) {
             // 只传入一个参数，即是容器的选择器或元素，toolbar 和 text 的元素自行创建
@@ -84,7 +85,7 @@ Editor.prototype = {
                             .css('border', '1px solid #ccc')
             $textContainerElem.css('border', '1px solid #ccc')
                             .css('border-top', 'none')
-                            .css('height', '300px')
+                            .css('height', initHeight + 'px')
         } else {
             // toolbar 和 text 的选择器都有值，记录属性
             $toolbarElem = $toolbarSelector
@@ -93,11 +94,13 @@ Editor.prototype = {
             $children = $textContainerElem.children()
         }
 
+        $textContainerInnerElem = $('<div></div>')
+        $textContainerElem.append($textContainerInnerElem)
+
         // 编辑区域
         $textElem = $('<div></div>')
         $textElem.attr('contenteditable', 'true')
                 .css('width', '100%')
-                .css('height', '100%')
 
         // 初始化编辑区域内容
         if ($children && $children.length) {
@@ -107,11 +110,12 @@ Editor.prototype = {
         }
 
         // 编辑区域加入DOM
-        $textContainerElem.append($textElem)
+        $textContainerInnerElem.append($textElem)
 
         // 设置通用的 class
         $toolbarElem.addClass('w-e-toolbar')
         $textContainerElem.addClass('w-e-text-container')
+        $textContainerInnerElem.addClass('w-e-text-container-inner')
         $textContainerElem.css('z-index', zIndex)
         $textElem.addClass('w-e-text')
 
@@ -124,6 +128,7 @@ Editor.prototype = {
         // 记录属性
         this.$toolbarElem = $toolbarElem
         this.$textContainerElem = $textContainerElem
+        this.$textContainerInnerElem = $textContainerInnerElem
         this.$textElem = $textElem
         this.toolbarElemId = toolbarElemId
         this.textElemId = textElemId
@@ -142,10 +147,10 @@ Editor.prototype = {
         // 绑定 onchange
         $textContainerElem.on('click keyup', () => {
             // 输入法结束才出发 onchange
-            compositionEnd && this.change &&  this.change()
+            compositionEnd && this._onChange()
         })
-        $toolbarElem.on('click', function () {
-            this.change &&  this.change()
+        $toolbarElem.on('click', () => {
+            this._onChange()
         })
 
         //绑定 onfocus 与 onblur 事件
@@ -180,6 +185,11 @@ Editor.prototype = {
             })
         }
 
+    },
+
+    _onChange () {
+        this._fixContentHeight()
+        this.change &&  this.change()
     },
 
     // 封装 command
@@ -298,6 +308,15 @@ Editor.prototype = {
             }
         }
 
+    },
+
+    _fixContentHeight () {
+        if (!this.config.maxContentHeight){
+            return
+        }
+        const contentHeight = this.$textElem.getSizeData().height + 50
+        const target = Math.max(Math.min(this.config.maxContentHeight, contentHeight), this.config.minContentHeight)
+        this.$textContainerElem.css('height', target + 'px')
     },
 
     // 创建编辑器

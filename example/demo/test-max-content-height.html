@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>maxContentHeight</title>
+</head>
+<body>
+    <p>内容高度自动调整</p>
+    <div id="div1">
+        <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
+    </div>
+
+    <script type="text/javascript" src="/wangEditor.js"></script>
+    <script type="text/javascript">
+        var E = window.wangEditor
+        var editor = new E('#div1')
+        editor.customConfig.minContentHeight = 200
+        editor.customConfig.maxContentHeight = 500
+        editor.create()
+    </script>
+</body>
+</html>

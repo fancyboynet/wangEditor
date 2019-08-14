@@ -251,7 +251,9 @@ const config = {
     // 话题
     topic: {
         onInput: null
-    }
+    },
+    minContentHeight: null, // 内容区域最小高度
+    maxContentHeight: null // 内容区域最大高度，设置时会自动调整高度
 }
 
 export default config

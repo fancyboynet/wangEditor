@@ -8,6 +8,7 @@
 - topic // 话题
 - youtube // youtube视频
 - 插入图片附带宽高属性
+- 内容区域高度自动调整
 
 ## Install
 
@@ -48,4 +49,12 @@ editor.create()
 output
 ```
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xxx" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+```
+
+## 内容区域高度自动调整
+
+usage
+```
+editor.customConfig.minContentHeight = 200
+editor.customConfig.maxContentHeight = 500
 ```
