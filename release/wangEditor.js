@@ -4,10 +4,6 @@
 	(global.wangEditor = factory());
 }(this, (function () { 'use strict';
 
-var NAME = 'fancy-wangeditor';
-var VERSION = '3.3.0';
-window.console.log('%c ' + NAME + ' v' + VERSION + ' ', 'background: black; color: white');
-
 /*
     poly-fill
 */
@@ -737,7 +733,7 @@ var config = {
     topic: {
         onInput: null
     },
-    minContentHeight: null, // 内容区域最小高度
+    minContentHeight: 300, // 内容区域最小高度
     maxContentHeight: null // 内容区域最大高度，设置时会自动调整高度
 };
 
@@ -4674,7 +4670,7 @@ Editor.prototype = {
 
         var config$$1 = this.config;
         var zIndex = config$$1.zIndex;
-        var initHeight = config$$1.minContentHeight || 300;
+        var initHeight = config$$1.minContentHeight;
 
         // 定义变量
         var $toolbarElem = void 0,

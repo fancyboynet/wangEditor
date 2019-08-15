@@ -1,4 +1,3 @@
-import './version.js'
 import polyfill from './util/poly-fill.js'
 import Editor from './editor/index.js'
 

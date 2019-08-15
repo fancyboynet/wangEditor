@@ -15,6 +15,8 @@ const cssgrace = require('cssgrace')
 const resolve = require('rollup-plugin-node-resolve')
 const babel = require('rollup-plugin-babel')
 const gulpReplace = require('gulp-replace')
+const pkg = require('./package.json')
+const header = require('gulp-header')
 
 // 拷贝 fonts 文件
 gulp.task('copy-fonts', () => {
@@ -89,9 +91,10 @@ gulp.task('script', () => {
                     return content
                 }))
                 .pipe(gulp.dest('./release'))
-                .pipe(sourcemaps.init())
                 // 压缩
                 .pipe(uglify())
+                .pipe(header(`/*! ${pkg.name} v${pkg.version} */\n`))
+                .pipe(sourcemaps.init())
                 // 产出的压缩的文件名
                 .pipe(rename('wangEditor.min.js'))
                 // 生成 sourcemap

@@ -64,7 +64,7 @@ Editor.prototype = {
 
         const config = this.config
         const zIndex = config.zIndex
-        const initHeight = config.minContentHeight || 300
+        const initHeight = config.minContentHeight
 
         // 定义变量
         let $toolbarElem, $textContainerElem, $textContainerInnerElem, $textElem, $children
