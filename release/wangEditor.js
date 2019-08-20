@@ -4351,7 +4351,7 @@ UploadImg.prototype = {
         // 验证图片 url 是否有效，无效的话给出提示
         var img = document.createElement('img');
         img.onload = function () {
-            editor.cmd.do('insertHTML', '<p><br></p><p><img src="' + link + '" style="max-width:100%;height:auto;" width="' + img.width + '" height="' + img.height + '" /></p>');
+            editor.cmd.do('insertHTML', '<p><br></p><p><img src="' + link + '" width="' + img.width + '" height="' + img.height + '" /></p>');
 
             var callback = config.linkImgCallback;
             if (callback && typeof callback === 'function') {
