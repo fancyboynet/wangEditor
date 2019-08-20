@@ -329,6 +329,10 @@ Editor.prototype = {
         }, 100)
     },
 
+    fixContentHeight () {
+        this._fixContentHeight()
+    },
+
     // 创建编辑器
     create: function () {
         // 初始化配置信息

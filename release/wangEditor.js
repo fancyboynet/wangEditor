@@ -4934,6 +4934,9 @@ Editor.prototype = {
             _this2.$textContainerInnerElem.css('height', target + 'px');
         }, 100);
     },
+    fixContentHeight: function fixContentHeight() {
+        this._fixContentHeight();
+    },
 
 
     // 创建编辑器
