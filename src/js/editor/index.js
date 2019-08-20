@@ -325,7 +325,7 @@ Editor.prototype = {
         setTimeout(() => {
             const contentHeight = this.$textElem.getSizeData().height + 20
             const target = Math.max(Math.min(this.config.maxContentHeight, contentHeight), this.config.minContentHeight)
-            this.$textContainerInnerElem.css('height', target + 'px')
+            this.$textContainerInnerElem.css('height', Math.round(target) + 'px')
         }, 100)
     },
 

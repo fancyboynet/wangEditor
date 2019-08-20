@@ -4931,7 +4931,7 @@ Editor.prototype = {
         setTimeout(function () {
             var contentHeight = _this2.$textElem.getSizeData().height + 20;
             var target = Math.max(Math.min(_this2.config.maxContentHeight, contentHeight), _this2.config.minContentHeight);
-            _this2.$textContainerInnerElem.css('height', target + 'px');
+            _this2.$textContainerInnerElem.css('height', Math.round(target) + 'px');
         }, 100);
     },
     fixContentHeight: function fixContentHeight() {
