@@ -322,9 +322,11 @@ Editor.prototype = {
         if (!this.config.maxContentHeight){
             return
         }
-        const contentHeight = this.$textElem.getSizeData().height + 20
-        const target = Math.max(Math.min(this.config.maxContentHeight, contentHeight), this.config.minContentHeight)
-        this.$textContainerInnerElem.css('height', target + 'px')
+        setTimeout(() => {
+            const contentHeight = this.$textElem.getSizeData().height + 20
+            const target = Math.max(Math.min(this.config.maxContentHeight, contentHeight), this.config.minContentHeight)
+            this.$textContainerInnerElem.css('height', target + 'px')
+        }, 100)
     },
 
     // 创建编辑器

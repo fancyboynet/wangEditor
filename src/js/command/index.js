@@ -50,7 +50,7 @@ Command.prototype = {
         editor.selection.restoreSelection()
 
         // 触发 onchange
-        editor.change && editor.change()
+        editor._onChange()
     },
 
     // 自定义 insertHTML 事件
@@ -68,7 +68,7 @@ Command.prototype = {
         } else if (range.pasteHTML) {
             // IE <= 10
             range.pasteHTML(html)
-        } 
+        }
     },
 
     // 插入 elem
