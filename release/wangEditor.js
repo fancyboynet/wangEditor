@@ -4683,6 +4683,7 @@ Editor.prototype = {
             // 只传入一个参数，即是容器的选择器或元素，toolbar 和 text 的元素自行创建
             $toolbarElem = $('<div></div>');
             $textContainerElem = $('<div></div>');
+            $textContainerInnerElem = $('<div></div>');
 
             // 将编辑器区域原有的内容，暂存起来
             $children = $toolbarSelector.children();
@@ -4692,7 +4693,7 @@ Editor.prototype = {
 
             // 自行创建的，需要配置默认的样式
             $toolbarElem.css('background-color', '#f1f1f1').css('border', '1px solid #ccc');
-            $textContainerElem.css('border', '1px solid #ccc').css('border-top', 'none').css('height', initHeight + 'px');
+            $textContainerElem.css('border', '1px solid #ccc').css('border-top', 'none');
         } else {
             // toolbar 和 text 的选择器都有值，记录属性
             $toolbarElem = $toolbarSelector;
@@ -4701,8 +4702,7 @@ Editor.prototype = {
             $children = $textContainerElem.children();
         }
 
-        $textContainerInnerElem = $('<div></div>');
-        $textContainerElem.append($textContainerInnerElem);
+        $textContainerElem.css('height', initHeight + 'px').append($textContainerInnerElem);
 
         // 编辑区域
         $textElem = $('<div></div>');
