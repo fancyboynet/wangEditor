@@ -4706,7 +4706,13 @@ Editor.prototype = {
 
         // 编辑区域
         $textElem = $('<div></div>');
-        $textElem.attr('contenteditable', 'true').css('width', '100%').css('min-height', initHeight + 'px');
+        $textElem.attr('contenteditable', 'true').css('border-top', '1px solid transparent').css('width', '100%');
+
+        if (!config$$1.maxContentHeight) {
+            $textElem.css('height', '100%');
+        } else {
+            $textElem.css('min-height', initHeight + 'px');
+        }
 
         // 初始化编辑区域内容
         if ($children && $children.length) {
@@ -4919,7 +4925,7 @@ Editor.prototype = {
         if (!this.config.maxContentHeight) {
             return;
         }
-        var contentHeight = this.$textElem.getSizeData().height + 50;
+        var contentHeight = this.$textElem.getSizeData().height + 20;
         var target = Math.max(Math.min(this.config.maxContentHeight, contentHeight), this.config.minContentHeight);
         this.$textContainerElem.css('height', target + 'px');
     },
