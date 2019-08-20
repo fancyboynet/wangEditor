@@ -4694,6 +4694,7 @@ Editor.prototype = {
             // 自行创建的，需要配置默认的样式
             $toolbarElem.css('background-color', '#f1f1f1').css('border', '1px solid #ccc');
             $textContainerElem.css('border', '1px solid #ccc').css('border-top', 'none');
+            $textContainerInnerElem.css('height', initHeight + 'px');
         } else {
             // toolbar 和 text 的选择器都有值，记录属性
             $toolbarElem = $toolbarSelector;
@@ -4702,7 +4703,7 @@ Editor.prototype = {
             $children = $textContainerElem.children();
         }
 
-        $textContainerElem.css('height', initHeight + 'px').append($textContainerInnerElem);
+        $textContainerElem.append($textContainerInnerElem);
 
         // 编辑区域
         $textElem = $('<div></div>');
@@ -4711,7 +4712,7 @@ Editor.prototype = {
         if (!config$$1.maxContentHeight) {
             $textElem.css('height', '100%');
         } else {
-            $textElem.css('min-height', initHeight + 'px');
+            $textElem.css('min-height', initHeight - 20 + 'px');
         }
 
         // 初始化编辑区域内容
@@ -4927,7 +4928,7 @@ Editor.prototype = {
         }
         var contentHeight = this.$textElem.getSizeData().height + 20;
         var target = Math.max(Math.min(this.config.maxContentHeight, contentHeight), this.config.minContentHeight);
-        this.$textContainerElem.css('height', target + 'px');
+        this.$textContainerInnerElem.css('height', target + 'px');
     },
 
 

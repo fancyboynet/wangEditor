@@ -86,6 +86,7 @@ Editor.prototype = {
                             .css('border', '1px solid #ccc')
             $textContainerElem.css('border', '1px solid #ccc')
                             .css('border-top', 'none')
+            $textContainerInnerElem.css('height', `${ initHeight }px`)
 
         } else {
             // toolbar 和 text 的选择器都有值，记录属性
@@ -95,7 +96,7 @@ Editor.prototype = {
             $children = $textContainerElem.children()
         }
 
-        $textContainerElem.css('height', `${ initHeight }px`).append($textContainerInnerElem)
+        $textContainerElem.append($textContainerInnerElem)
 
         // 编辑区域
         $textElem = $('<div></div>')
@@ -106,7 +107,7 @@ Editor.prototype = {
         if (!config.maxContentHeight){
             $textElem.css('height', '100%')
         } else {
-            $textElem.css('min-height', `${ initHeight }px`)
+            $textElem.css('min-height', `${ initHeight - 20 }px`)
         }
 
         // 初始化编辑区域内容
@@ -323,7 +324,7 @@ Editor.prototype = {
         }
         const contentHeight = this.$textElem.getSizeData().height + 20
         const target = Math.max(Math.min(this.config.maxContentHeight, contentHeight), this.config.minContentHeight)
-        this.$textContainerElem.css('height', target + 'px')
+        this.$textContainerInnerElem.css('height', target + 'px')
     },
 
     // 创建编辑器
