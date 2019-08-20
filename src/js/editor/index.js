@@ -101,6 +101,7 @@ Editor.prototype = {
         $textElem = $('<div></div>')
         $textElem.attr('contenteditable', 'true')
                 .css('width', '100%')
+                .css('min-height', initHeight + 'px')
 
         // 初始化编辑区域内容
         if ($children && $children.length) {
