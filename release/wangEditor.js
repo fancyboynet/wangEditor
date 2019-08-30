@@ -4347,29 +4347,25 @@ UploadImg.prototype = {
                 return;
             }
         }
-
+        editor.insertImage(link);
+        var images = editor.getImageByLink(link);
+        if (!images || !images.length) return;
+        var img = images[0];
         // 验证图片 url 是否有效，无效的话给出提示
-        var img = document.createElement('img');
         img.onload = function () {
-            editor.cmd.do('insertHTML', '<p><br></p><p><img src="' + link + '" width="' + img.width + '" height="' + img.height + '" /></p>');
-
+            Array.from(images).map(function (v) {
+                v.setAttribute('width', img.naturalWidth);
+                v.setAttribute('height', img.naturalHeight);
+            });
             var callback = config.linkImgCallback;
             if (callback && typeof callback === 'function') {
                 callback(link);
             }
-
-            img = null;
         };
         img.onerror = function () {
-            img = null;
             // 无法成功下载图片
             _this2._alert('插入图片错误', 'wangEditor: \u63D2\u5165\u56FE\u7247\u51FA\u9519\uFF0C\u56FE\u7247\u94FE\u63A5\u662F "' + link + '"\uFF0C\u4E0B\u8F7D\u8BE5\u94FE\u63A5\u5931\u8D25');
-            return;
         };
-        img.onabort = function () {
-            img = null;
-        };
-        img.src = link;
     },
 
     // 上传图片
@@ -4979,6 +4975,22 @@ Editor.prototype = {
             return;
         }
         this.menus.menus.topic.setList(list);
+    },
+
+
+    // 插入图片
+    insertImage: function insertImage() {
+        var src = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+        var width = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+        var height = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+
+        this.cmd.do('insertHTML', '<p><img src="' + src + '" width="' + width + '" height="' + height + '" /></p><p><br></p>');
+    },
+
+    // 获取图片节点
+    getImageByLink: function getImageByLink(link) {
+        if (!link) return null;
+        return this.$textContainerElem[0].querySelectorAll('img[src=\'' + link + '\']');
     }
 };
 

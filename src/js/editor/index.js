@@ -373,6 +373,16 @@ Editor.prototype = {
             return
         }
         this.menus.menus.topic.setList(list)
+    },
+
+    // 插入图片
+    insertImage (src = '', width = '', height = '') {
+        this.cmd.do('insertHTML', `<p><img src="${src}" width="${width}" height="${height}" /></p><p><br></p>`)
+    },
+    // 获取图片节点
+    getImageByLink (link) {
+        if (!link) return null
+        return this.$textContainerElem[0].querySelectorAll(`img[src='${link}']`)
     }
 }
 

@@ -2,9 +2,8 @@
     上传图片
 */
 
-import { objForEach, arrForEach, percentFormat } from '../../util/util.js'
+import { objForEach, arrForEach } from '../../util/util.js'
 import Progress from './progress.js'
-import { UA } from '../../util/util.js'
 
 // 构造函数
 function UploadImg(editor) {
@@ -51,29 +50,26 @@ UploadImg.prototype = {
                 return
             }
         }
-
+        editor.insertImage(link)
+        const images = editor.getImageByLink(link)
+        if (!images || !images.length) return
+        const img = images[0]
         // 验证图片 url 是否有效，无效的话给出提示
-        let img = document.createElement('img')
         img.onload = () => {
-            editor.cmd.do('insertHTML', `<p><br></p><p><img src="${link}" width="${img.width}" height="${img.height}" /></p>`)
-
+            Array.from(images).map((v) => {
+                v.setAttribute('width', img.naturalWidth)
+                v.setAttribute('height', img.naturalHeight)
+            })
             const callback = config.linkImgCallback
             if (callback && typeof callback === 'function') {
                 callback(link)
             }
 
-            img = null
         }
         img.onerror = () => {
-            img = null
             // 无法成功下载图片
             this._alert('插入图片错误', `wangEditor: 插入图片出错，图片链接是 "${link}"，下载该链接失败`)
-            return
         }
-        img.onabort = () => {
-            img = null
-        }
-        img.src = link
     },
 
     // 上传图片

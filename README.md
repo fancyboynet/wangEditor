@@ -9,6 +9,7 @@
 - youtube // youtube视频
 - 插入图片附带宽高属性
 - 内容区域高度自动调整
+- 更多的API
 
 ## Install
 
