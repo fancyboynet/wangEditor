@@ -4357,6 +4357,7 @@ UploadImg.prototype = {
                 v.setAttribute('width', img.naturalWidth);
                 v.setAttribute('height', img.naturalHeight);
             });
+            editor.triggerChange();
             var callback = config.linkImgCallback;
             if (callback && typeof callback === 'function') {
                 callback(link);
@@ -4798,6 +4799,9 @@ Editor.prototype = {
     _onChange: function _onChange() {
         this._fixContentHeight();
         this.change && this.change();
+    },
+    triggerChange: function triggerChange() {
+        this._onChange();
     },
 
 

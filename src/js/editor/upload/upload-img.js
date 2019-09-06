@@ -60,6 +60,7 @@ UploadImg.prototype = {
                 v.setAttribute('width', img.naturalWidth)
                 v.setAttribute('height', img.naturalHeight)
             })
+            editor.triggerChange()
             const callback = config.linkImgCallback
             if (callback && typeof callback === 'function') {
                 callback(link)

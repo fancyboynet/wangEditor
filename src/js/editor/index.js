@@ -200,6 +200,10 @@ Editor.prototype = {
         this.change &&  this.change()
     },
 
+    triggerChange () {
+        this._onChange()
+    },
+
     // 封装 command
     _initCommand: function () {
         this.cmd = new Command(this)
