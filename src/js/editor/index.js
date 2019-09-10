@@ -382,6 +382,7 @@ Editor.prototype = {
     // 插入图片
     insertImage (src = '', width = '', height = '') {
         this.cmd.do('insertHTML', `<p><img src="${src}" width="${width}" height="${height}" /></p><p><br></p>`)
+        this.triggerChange()
     },
     // 获取图片节点
     getImageByLink (link) {

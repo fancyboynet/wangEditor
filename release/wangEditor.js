@@ -4989,6 +4989,7 @@ Editor.prototype = {
         var height = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
 
         this.cmd.do('insertHTML', '<p><img src="' + src + '" width="' + width + '" height="' + height + '" /></p><p><br></p>');
+        this.triggerChange();
     },
 
     // 获取图片节点
